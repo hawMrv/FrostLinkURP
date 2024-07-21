@@ -15,6 +15,10 @@ public class PlayerManager : MonoBehaviour
     public Text _TXTPlayerLives;
     public Text _TXTGameState;
 
+    [Space(10)] 
+
+    public TMP_Text[] _TXTGameStateText;
+
     #endregion
 
     #region PRIVATES
@@ -32,6 +36,8 @@ public class PlayerManager : MonoBehaviour
     {
         _TXTGameState.color = Color.red;
         _TXTGameState.text = "";
+
+        for (int i = 0; i < _TXTGameStateText.Length; i++) { _TXTGameStateText[i].text = ""; }
     }
 
     #endregion
@@ -46,6 +52,8 @@ public class PlayerManager : MonoBehaviour
         _TXTGameState.color = Color.white;
         _FieldGenerator.RemoveAllPlateaus();
 
+        for (int i = 0; i < _TXTGameStateText.Length; i++) { _TXTGameStateText[i].text = ""; }
+
         _isGameOn = false;
     }
 
@@ -59,6 +67,7 @@ public class PlayerManager : MonoBehaviour
         _TXTGameState.color = Color.red;
 
         _FieldGenerator.SubmergeAllPlateaus();
+        StartCoroutine(FadeInText("Defeat", Color.red));
     }
 
     public void GameWon()
@@ -67,6 +76,8 @@ public class PlayerManager : MonoBehaviour
 
         _TXTGameState.text = "YOU'RE WINNER";
         _TXTGameState.color = Color.green;
+
+        StartCoroutine(FadeInText("Victory", Color.green)); 
     }
 
     public void StartGame()
@@ -80,6 +91,8 @@ public class PlayerManager : MonoBehaviour
 
         _FieldGenerator.GenerateField();
         _FieldGenerator.MirrorPlateauA(true);
+
+        for (int i = 0; i < _TXTGameStateText.Length; i++) { _TXTGameStateText[i].text = ""; }
 
         _isGameOn = true;  
     }
@@ -103,6 +116,29 @@ public class PlayerManager : MonoBehaviour
                 _FieldGenerator.SubmergePlateausA();
                 _FieldGenerator.MirrorPlateauA(false);
             }
+        }
+    }
+
+    private IEnumerator FadeInText(string text, Color color)
+    {
+        Debug.Log("I am doinbg stuff", this);
+
+        float alpha = 0f;
+        color.a = alpha;
+
+        for (int i = 0; i < _TXTGameStateText.Length; i++) 
+        { 
+            _TXTGameStateText[i].color = color;
+            _TXTGameStateText[i].text = text;
+        }
+        
+        while (alpha < 1f)
+        {
+            alpha += 1f * Time.deltaTime;
+            color.a = alpha;
+            for (int i = 0; i < _TXTGameStateText.Length; i++) { _TXTGameStateText[i].color = color; }
+
+            yield return null;
         }
     }
 
