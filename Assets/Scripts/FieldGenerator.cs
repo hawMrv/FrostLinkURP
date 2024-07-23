@@ -316,6 +316,26 @@ public class FieldGenerator : MonoBehaviour
         }
     }
 
+    public void SurfacePath()
+    {
+        for (int i = 0; i < _PlateauPropertiesA.Length; i++)
+        {
+            for (int j = 0; j < _PlateauPropertiesA[i].Length; j++)
+            {
+                if (_path[i][j])
+                {
+                    _PlateauPropertiesA[i][j].Surface();
+                    _PlateauPropertiesA[i][j].Surface();
+                }
+                else
+                {
+                    _PlateauPropertiesA[i][j].Submerge();
+                    _PlateauPropertiesB[i][j].Submerge();
+                }
+            }
+        }
+    }
+
     public void SubmergeAllPlateaus()
     {
         for (int i = 0; i < _PlateauA.Length; i++)
@@ -349,7 +369,17 @@ public class FieldGenerator : MonoBehaviour
         {
             if (_PlateauA[i][j] != null && _PlateauA[i][j].activeInHierarchy) _PlateauPropertiesA[i][j].PlayerSteppedOnPlateau();
 
-            if (j == _fieldHeight - 1) _PlayerManager.GameWon();
+            if (j == _fieldHeight - 1)
+            {
+                if (!_holes[i][j])
+                {
+                    _PlayerManager.GameWon();
+                }
+                else
+                {
+                    _PlayerManager.StopGame();
+                }
+            }
         }
 
         if (_PlateauA[i][j] != null && _PlateauA[i][j].activeInHierarchy) _PlateauPropertiesA[i][j].TriggerHole();

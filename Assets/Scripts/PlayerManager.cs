@@ -15,9 +15,9 @@ public class PlayerManager : MonoBehaviour
     public Text _TXTPlayerLives;
     public Text _TXTGameState;
 
-    [Space(10)] 
+    [Space(10)]
 
-    public TMP_Text[] _TXTGameStateText;
+    public GameObject[] _Skulls = new GameObject[2];
 
     #endregion
 
@@ -26,7 +26,11 @@ public class PlayerManager : MonoBehaviour
     private int _playerLives = 3;
 
     private bool _isGameOn = false;
+    private bool _GameWon = false;
     private bool _playerAAlive = false;
+    private Vector3 _tempVec = Vector3.zero;
+    private float _skullRiseTime = 4f;
+    private float _initialSkullHeight = -1f;
 
     #endregion
 
@@ -36,8 +40,7 @@ public class PlayerManager : MonoBehaviour
     {
         _TXTGameState.color = Color.red;
         _TXTGameState.text = "";
-
-        for (int i = 0; i < _TXTGameStateText.Length; i++) { _TXTGameStateText[i].text = ""; }
+        ResetSkulls();
     }
 
     #endregion
@@ -52,9 +55,10 @@ public class PlayerManager : MonoBehaviour
         _TXTGameState.color = Color.white;
         _FieldGenerator.RemoveAllPlateaus();
 
-        for (int i = 0; i < _TXTGameStateText.Length; i++) { _TXTGameStateText[i].text = ""; }
-
         _isGameOn = false;
+        _GameWon = false;
+
+        StartGame();
     }
 
     public void StopGame()
@@ -67,24 +71,31 @@ public class PlayerManager : MonoBehaviour
         _TXTGameState.color = Color.red;
 
         _FieldGenerator.SubmergeAllPlateaus();
-        StartCoroutine(FadeInText("Defeat", Color.red));
+        LetDemSkullsRise();
     }
 
     public void GameWon()
     {
         _isGameOn = false;
+        _GameWon = true;
 
         _TXTGameState.text = "YOU'RE WINNER";
         _TXTGameState.color = Color.green;
 
-        StartCoroutine(FadeInText("Victory", Color.green)); 
+        _playerAAlive = true;
+        _playerLives = 999;
+
+        _FieldGenerator.SurfacePath();
     }
 
     public void StartGame()
     {
         if (_isGameOn) return;
 
+        _GameWon = false;
+
         _playerLives = 3;
+        _playerAAlive = true;
 
         _TXTGameState.text = "GAME ON";
         _TXTGameState.color = Color.green;
@@ -92,53 +103,63 @@ public class PlayerManager : MonoBehaviour
         _FieldGenerator.GenerateField();
         _FieldGenerator.MirrorPlateauA(true);
 
-        for (int i = 0; i < _TXTGameStateText.Length; i++) { _TXTGameStateText[i].text = ""; }
+        ResetSkulls();
 
         _isGameOn = true;  
     }
 
     public void PlayerSteppedOnHole(int type)
     {
+        Debug.Log("Player " + type + " stepped on hole", this);
+
         if (type == 1)
         {
             StopGame();
             return;
         }
-        else if (type == 0)
+        else if (type == 0 && _playerAAlive)
         {
             _playerLives--;
             _TXTPlayerLives.text = "";
 
             for (int i = 0; i < _playerLives; i++) _TXTPlayerLives.text += "X";
 
-            if (_playerLives == 0)
+            if (_playerLives == 0 && _playerAAlive)
             {
-                _FieldGenerator.SubmergePlateausA();
+                _playerAAlive = false;
+                if (!_GameWon) _FieldGenerator.SubmergePlateausA();
                 _FieldGenerator.MirrorPlateauA(false);
             }
         }
     }
 
-    private IEnumerator FadeInText(string text, Color color)
+    private void LetDemSkullsRise()
     {
-        Debug.Log("I am doinbg stuff", this);
+        StartCoroutine(RiseSkull());
+    }
 
-        float alpha = 0f;
-        color.a = alpha;
+    private IEnumerator RiseSkull()
+    {
+        ResetSkulls();
 
-        for (int i = 0; i < _TXTGameStateText.Length; i++) 
-        { 
-            _TXTGameStateText[i].color = color;
-            _TXTGameStateText[i].text = text;
-        }
-        
-        while (alpha < 1f)
+        while (_Skulls[0].transform.position.y <= 0f)
         {
-            alpha += 1f * Time.deltaTime;
-            color.a = alpha;
-            for (int i = 0; i < _TXTGameStateText.Length; i++) { _TXTGameStateText[i].color = color; }
+            for (int i = 0; i < _Skulls.Length;  i++)
+            {
+                _tempVec = _Skulls[i].transform.position;
+                _tempVec.y += Time.deltaTime / _skullRiseTime;
+                _Skulls[i].transform.position = _tempVec;
+            }
 
             yield return null;
+        }
+    }
+
+    private void ResetSkulls()
+    {
+        for (int i = 0; i < _Skulls.Length; i++)
+        {
+            _Skulls[i].transform.localPosition = new Vector3(0f, _initialSkullHeight, 0f);
         }
     }
 

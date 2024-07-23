@@ -55,7 +55,7 @@ public class PlateauProperties : MonoBehaviour
     private bool _indicatorRising = false;
     private bool _indicatorDiving = false;
 
-    private float _plateauDropTime = 5.0f;
+    private float _plateauDropTime = 2.0f;
 
     private int[] _ID = new int[2];
 
@@ -228,7 +228,7 @@ public class PlateauProperties : MonoBehaviour
 
     public void Surface()
     {
-        if (_plateauSurfaced) return;
+        //if (_plateauSurfaced) return;
         StartCoroutine(SurfacePlateau());
     }
 
@@ -246,6 +246,8 @@ public class PlateauProperties : MonoBehaviour
         _plateauSurfaced = true;
     }
 
+
+
     public void Submerge()
     {
         StartCoroutine(SubmergePlateau());
@@ -253,14 +255,16 @@ public class PlateauProperties : MonoBehaviour
 
     private IEnumerator SubmergePlateau()
     {
-        while (this.transform.position.y >= -1)
+        _plateauSurfaced = false;
+
+        while (this.transform.position.y >= -1 && !_plateauSurfaced)
         {
-            this.transform.position -= (this.transform.up * _playerIndicatorHeightOffset) / (_playerIndicatorDiveTime / Time.deltaTime);
+            this.transform.position -= (this.transform.up * _playerIndicatorHeightOffset) / (_plateauDropTime / Time.deltaTime);
 
             yield return null;
         }
 
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
     }
 
     #endregion
