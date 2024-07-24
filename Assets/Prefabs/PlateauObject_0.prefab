@@ -254,6 +254,9 @@ MonoBehaviour:
   - {fileID: 3838924669803277703}
   - {fileID: 1602951927164391735}
   - {fileID: 1759197628799997182}
+  _AudioSource: {fileID: 0}
+  _SoundPlateauStable: {fileID: 8300000, guid: 2ad4a7e285764734594baf3a56bd6bec, type: 3}
+  _SoundPlateauHole: {fileID: 8300000, guid: 32ebed1f7be58254c972e39e3ef6786c, type: 3}
   _isHole: 0
   _playerType: 0
   _isPath: 0

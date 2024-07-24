@@ -35,6 +35,12 @@ public class PlateauProperties : MonoBehaviour
     [Space(10)]
 
     public GameObject[] _PlateauModel = new GameObject[3];
+    
+    [Space(10)]
+
+    public AudioSource _AudioSource;
+    public AudioClip _SoundPlateauStable;
+    public AudioClip _SoundPlateauHole;
 
     #endregion
 
@@ -72,12 +78,22 @@ public class PlateauProperties : MonoBehaviour
         //PlayerSteppedOnPlateau();
 
         ReportPlayerStepToFieldGenerator();
+
+        if (_isHole)
+        {
+            _AudioSource.PlayOneShot(_SoundPlateauHole);
+        }
+        else
+        {
+            _AudioSource.PlayOneShot(_SoundPlateauStable);
+        }
     }
 
     private void Start()
     {
         _MOTHER = GameObject.FindGameObjectWithTag("MOTHER");
         _FieldGenerator = GameObject.FindGameObjectWithTag("MOTHER").GetComponent<FieldGenerator>();
+        _AudioSource = Camera.main.GetComponent<AudioSource>();
     }
 
     #endregion

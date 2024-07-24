@@ -19,6 +19,15 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject[] _Skulls = new GameObject[2];
 
+    [Space(10)]
+
+    public AudioSource _AudioSource;
+
+    [Space(10)]
+
+    public AudioClip _SoundDefeat;
+    public AudioClip _SoundVictory;
+
     #endregion
 
     #region PRIVATES
@@ -65,6 +74,8 @@ public class PlayerManager : MonoBehaviour
     {
         if (!_isGameOn) return;
 
+        _AudioSource.PlayOneShot(_SoundDefeat);
+
         _isGameOn = false;
 
         _TXTGameState.text = "GAME OVER";
@@ -76,6 +87,9 @@ public class PlayerManager : MonoBehaviour
 
     public void GameWon()
     {
+        //_AudioSource.clip = _SoundVictory;
+        _AudioSource.PlayOneShot(_SoundVictory);
+
         _isGameOn = false;
         _GameWon = true;
 
@@ -111,6 +125,8 @@ public class PlayerManager : MonoBehaviour
     public void PlayerSteppedOnHole(int type)
     {
         Debug.Log("Player " + type + " stepped on hole", this);
+
+        //_AudioSource.PlayOneShot(_SoundPlateauHole);
 
         if (type == 1)
         {
