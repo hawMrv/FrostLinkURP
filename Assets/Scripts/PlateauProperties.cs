@@ -163,7 +163,7 @@ public class PlateauProperties : MonoBehaviour
         TriggerPlayerIndicator();
     }
 
-    private void TriggerPlayerIndicator()
+    public void TriggerPlayerIndicator()
     {
         if (!_indicating)
         {

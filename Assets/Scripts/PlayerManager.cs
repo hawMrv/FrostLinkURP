@@ -54,7 +54,7 @@ public class PlayerManager : MonoBehaviour
 
     #endregion
 
-    #region METHODS
+    #region METHODSW
 
     public void ResetGame()
     {

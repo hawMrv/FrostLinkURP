@@ -17,7 +17,7 @@ public class UIHandler : MonoBehaviour
         }
     }
 
-    private void ToggleUI()
+    public void ToggleUI()
     {
         _showUI = !_showUI;
 

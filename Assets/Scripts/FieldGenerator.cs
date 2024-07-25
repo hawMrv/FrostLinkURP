@@ -90,6 +90,28 @@ public class FieldGenerator : MonoBehaviour
 
     #region METHODS
 
+    public void ShowWalkablePath()
+    {
+        StartCoroutine(ShowEachWalkablePath());
+    }
+
+    private IEnumerator ShowEachWalkablePath()
+    {
+        for (int i = 0; i < _PlateauPropertiesA[0].Length; i++)
+        {
+            for (int j = 0; j < _PlateauPropertiesA.Length; j++)
+            {
+                if (!_holes[j][i])
+                {
+                    _PlateauPropertiesA[j][i].TriggerPlayerIndicator();
+                    _PlateauPropertiesB[j][i].TriggerPlayerIndicator();
+                }
+            }
+
+            yield return new WaitForSeconds(.5f);
+        }
+    }
+
     public void GenerateField()
     {
         // in case field was generated before

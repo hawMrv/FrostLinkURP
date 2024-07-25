@@ -1,0 +1,17 @@
+Spieler A = Echte WElt
+SPieler B = VR
+
+- B muss auf die andere Seite
+- aber vorsicht, die SChollen sind trügerisch, sie können einbrechen
+- deshalb gibt es A, dieser kann bis zu drei Mal einbrechen, bevor dieser raus ist
+- wenn SPieler A raus ist, kann B trotzdem noch weiterlaufen
+
+- bdeie SPieler müssen aufpassen, da sie nur ganz kurz sehen können, auf welche SChollen die anderen SPieler getreten sind
+- beide SPieler können sich frei bewegen, dürfen aber keine Schollen Diagonal betreten
+
+- Spieler A muss nach einer einbrechenden Scholle, wieder eine Scholle zurücktreten
+
+- Beide SPieler haben gewonnen, wenn B auf der anderen Seite ankommt
+- beide spieler haben verloren, wenn B auf eine einbrechende Scholle tritt
+
+- beide Sieler haben unendlich viel Zeit (im Rahmen der Öffnungszeiten des RUndgangs)
