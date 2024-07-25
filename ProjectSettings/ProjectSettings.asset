@@ -41,7 +41,7 @@ PlayerSettings:
     height: 1
   m_SplashScreenLogos:
   - logo: {fileID: 21300000, guid: 22257c2ca2d57844da7ea0bf3f90543c, type: 3}
-    duration: 2
+    duration: 4
   m_VirtualRealitySplashScreen: {fileID: 2800000, guid: d88945fdab0f2ad4082966c30b8c03d1,
     type: 3}
   m_HolographicTrackingLossScreen: {fileID: 0}
@@ -142,7 +142,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: FrostLink_1.1
+  bundleVersion: FrostLink_1.2
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0

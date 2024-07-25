@@ -1530,7 +1530,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!1 &1306340344
 GameObject:
   m_ObjectHideFlags: 0
@@ -4554,7 +4554,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3645885893199877409}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -3.35, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4563,7 +4563,7 @@ Transform:
   - {fileID: 2083755552}
   - {fileID: 2163703309892727492}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &2887684270445217980
 GameObject:
   m_ObjectHideFlags: 0
@@ -9724,6 +9724,7 @@ MonoBehaviour:
   _ExtraSender:
   - {fileID: 529293867}
   - {fileID: 348642506}
+  _TglEnableDualNDI: {fileID: 1189235576}
 --- !u!1 &8596018823241018167
 GameObject:
   m_ObjectHideFlags: 0

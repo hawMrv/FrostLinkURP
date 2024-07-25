@@ -11,7 +11,14 @@ public class NDIStreamHandler : MonoBehaviour
 
     public GameObject[] _ExtraSender;
 
+    public Toggle _TglEnableDualNDI;
+
     private bool _enableExtraNDI = false;
+
+    private void Start()
+    {
+        EnableExtraNDI(_TglEnableDualNDI.isOn);
+    }
 
     public void EnableExtraNDI(bool enable)
     {
