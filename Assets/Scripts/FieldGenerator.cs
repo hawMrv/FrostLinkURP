@@ -80,6 +80,8 @@ public class FieldGenerator : MonoBehaviour
 
     private Vector3 _tempVec = Vector3.zero;
 
+    private float _walkPathBlinkTime = 2f;
+
     #endregion
 
     #region UNITY_METHODS
@@ -92,6 +94,13 @@ public class FieldGenerator : MonoBehaviour
 
     public void ShowWalkablePath()
     {
+        StartCoroutine(ShowEachWalkablePath());
+    }
+
+    private IEnumerator DelayedShowWalkablePath()
+    {
+        Debug.Log("Sowing walkapbe path in 2s", this);
+        yield return new WaitForSeconds(2);
         StartCoroutine(ShowEachWalkablePath());
     }
 
@@ -108,9 +117,13 @@ public class FieldGenerator : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(_walkPathBlinkTime / _PlateauPropertiesA[0].Length);
         }
     }
+
+    public void SetWalkPathBLinkTime(float walkPathBlinkTime) { _walkPathBlinkTime = walkPathBlinkTime; }
+    public float WalkPathBlinkTime() { return _walkPathBlinkTime; }
+
 
     public void GenerateField()
     {
@@ -286,6 +299,8 @@ public class FieldGenerator : MonoBehaviour
                 _PlateauPropertiesB[i][j].ShowHoleVisibility(_showHoles);
             }
         }
+
+        //StartCoroutine(DelayedShowWalkablePath());
     }
 
 

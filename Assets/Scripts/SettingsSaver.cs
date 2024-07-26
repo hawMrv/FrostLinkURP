@@ -21,6 +21,7 @@ public class SettingsSaver : MonoBehaviour
     public Slider _SldrPlateauSize;
     public Slider _SldrHoleChance;
     public Slider _SldrPlateauSpacing;
+    public Slider _SldrWalkPathBLinkTime;
 
     #endregion
 
@@ -79,6 +80,8 @@ public class SettingsSaver : MonoBehaviour
 
     public void SaveSettings()
     {
+        Debug.Log("Saving Settings", this);
+
         _Settings = new FrostLinkSettings();
         _Settings._fieldWidth = _FieldGenerator.FieldWidth();
         _Settings._fieldHeight = _FieldGenerator.FieldHeight();
@@ -86,6 +89,7 @@ public class SettingsSaver : MonoBehaviour
         _Settings._plateauSize = _FieldGenerator.PlateauSize();
         _Settings._holeChance = _FieldGenerator.HoleChance();
         _Settings._plateauSpacing = _FieldGenerator.PlateauSpacing();
+        _Settings._walkPathBlinkTime = _FieldGenerator.WalkPathBlinkTime();
 
         string settings = JsonUtility.ToJson(_Settings);
         WriteSettingsToFile(settings);
@@ -101,6 +105,7 @@ public class SettingsSaver : MonoBehaviour
         _SldrPlateauSize.value = _Settings._plateauSize;
         _SldrHoleChance.value = _Settings._holeChance;
         _SldrPlateauSpacing.value = _Settings._plateauSpacing;
+        _SldrWalkPathBLinkTime.value = _Settings._walkPathBlinkTime;
     }
 
     private string ReadSettingsFromFile()
@@ -124,4 +129,5 @@ public class FrostLinkSettings
     public float _plateauSize = 0.9f;
     public int _holeChance = 100;
     public float _plateauSpacing = .3f;
+    public float _walkPathBlinkTime = 2f;
 }
